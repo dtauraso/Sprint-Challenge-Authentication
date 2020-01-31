@@ -12,7 +12,8 @@ function find() {
 }
 
 function findBy(filter) {
-  return db('users').where(filter);
+  // console.log(db('users').where('id', filter))
+  return db('users').where('username', filter);
 }
 
 async function add(user) {

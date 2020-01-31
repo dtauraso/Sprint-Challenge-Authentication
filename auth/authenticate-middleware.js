@@ -10,6 +10,7 @@ const { jwtSecret } = require('../config/secrets.js')
 module.exports = (req, res, next) => {
   const token = req.headers.authorization
   // will fail if the secret is changed
+  console.log('request headers', req.headers)
   if(token) {
     jwt.verify(token, jwtSecret, (err, decodedToken) => {
       if(err) {

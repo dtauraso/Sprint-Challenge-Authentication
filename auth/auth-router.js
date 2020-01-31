@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
 router.post('/register', (req, res) => {
   // implement registration
   let user = req.body;
-    // console.log(user)
+    console.log(user)
 
   const hash = bcrypt.hashSync(user.password, 5); // 2 ^ n
   user.password = hash;
@@ -21,7 +21,7 @@ router.post('/register', (req, res) => {
   // send a token in the register
   Users.add(user)
     .then(saved => {
-      // console.log('user saved', token)
+      console.log('user saved', user)
       res.status(201).json(user);
     })
     .catch(error => {
@@ -32,7 +32,7 @@ router.post('/register', (req, res) => {
 router.post('/login', (req, res) => {
   // implement login
   let { username, password } = req.body;
-  // console.log(username)
+  console.log(username, password)
   // Users.findBy(username)
   // .first()
   //   .then(stuff => {
@@ -42,18 +42,22 @@ router.post('/login', (req, res) => {
   //       console.log('passes')
   //     }
   //   })
-  // Users.find()
-  //   .then(stuff => {
-  //     console.log(stuff)
-  //   })
+  Users.findBy(username)
+    .then(stuff => {
+      console.log('username', stuff)
+    })
+    Users.find()
+    .then(stuff => {
+      console.log('all', stuff)
+    })
   Users.findBy( username ) // failing
     .first()
     .then(user => {
       if (user && bcrypt.compareSync(password, user.password)) {
 
         const token = signToken(user)
-        console.log('user passes')
-        res.status(200).json({token});
+        // console.log('user passes')
+        res.status(200).json({ token });
       } else {
         res.status(401).json({ message: 'Invalid Credentials' });
       }

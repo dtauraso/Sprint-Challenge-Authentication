@@ -3,15 +3,21 @@ const server = require('./server.js')
 const db = require('../database/dbConfig')
 
 // makes sure these endpoints actually exist
-describe('server', function() {
+// messing it up
+describe('server register', function() {
     it('runs the test', function() {
         expect(true).toBe(true);
     })
     beforeEach(async () => {
         await db('users').truncate();
     })
-    it('test register endpoint', function() {
-        return request(server)
+    it('test register endpoint', async function() {
+        // const users = await db('users')
+        // if(users.length > 0) {
+        // console.log('length', users.length)
+
+        // }
+        const x = await request(server)
                 .post('/api/auth/register')
                 .send({
                         username: 'test',
@@ -20,8 +26,18 @@ describe('server', function() {
                     // console.log('status', res.status)
                     expect(res.status).toBe(201)
             })
+        return x
+    })    
+})
+describe('next one', function() {
+    beforeEach(async () => {
+        await db('users').truncate();
     })
+
     it('test register model', async function() {
+        const users1 = await db('users')
+
+        console.log('length', users1.length)
 
         await db('users')
             .insert({
@@ -31,9 +47,13 @@ describe('server', function() {
 
         expect(users).toHaveLength(1)
     })
+})
+
+describe.skip('the next one', function() {
     beforeEach(async () => {
         await db('users').truncate();
     })
+
     it('test register and login endpoint', function() {
         return request(server)
                 .post('/api/auth/register')
@@ -55,6 +75,13 @@ describe('server', function() {
                     expect(res.status).toBe(201)
             })
     })
+    
+})
+
+describe.skip('the last one', function() {
+    beforeEach(async () => {
+        await db('users').truncate();
+    })
     it('test register and login model', async function() {
         await db('users')
             .insert({
@@ -69,45 +96,4 @@ describe('server', function() {
         }
         // expect(users).toHaveLength(1)
     })
-
-        // it('should return 200 OK', function() { // returns no value
-        //     // make a GET request to /
-        //     return request(server).get('/') // returns a promise
-        //         .then(res => {
-        //             expect(res.type).toMatch(/json/i)
-        //         })
-        //     // check that that status code is 200
-        // })
-
-        // it('should return 200 OK', function() { // returns no value
-        //     // make a GET request to /
-        //     return request(server).get('/') // returns a promise
-        //         .then(res => {
-        //             expect(res.body).toStrictEqual({api: 'up'})
-        //         })
-        //     // check that that status code is 200
-        // })
-
-        // it('should return 200 OK', function() { // returns no value
-        //     // make a GET request to /
-        //     return request(server).get('/hobbits') // returns a promise
-        //         .then(res => {
-        //             expect(res.status).toBe(200)
-        //         })
-        //     // check that that status code is 200
-        // })
-
-        
 })
-
-// describe('something', function() {
-//     it('GET / should return 200 OK', function() { // returns no value
-//         // make a GET request to /
-//         return request(server).get('/api/auth/') // returns a promise
-//             .then(res => {
-//                 // console.log(res.status)
-//                 expect(res.status).toBe(200)
-//             })
-//         // check that that status code is 200
-//     })
-// })

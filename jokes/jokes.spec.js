@@ -9,7 +9,11 @@ describe('get jokes', function() {
     beforeEach(async () => {
         await db('users').truncate();
     })
-    it('test get endpoint', function() {
+    it('test get endpoint', async function() {
+        // const users = await db('users')
+
+        // console.log('length', users.length)
+
         // return request(server)
         //         .get('/api/jokes/')
         //         .send()
@@ -21,23 +25,31 @@ describe('get jokes', function() {
         return request(server)
                 .post('/api/auth/register')
                 .send({
-                        username: 'test',
+                        username: 'test server',
                         password: 'password'})
                 .then(res => {
-                    // console.log('status', res)
-                    console.log('user is in')
-                    // expect(res.status).toBe(201)
-                    return request(server)
-                        .get('/api/auth/login')
-                        .send({
-                            username: 'test',
-                            password: 'password'})
-                        .then(res => {
-                            console.log(res.status)
-                            expect(res.status).toBe(201)
+                    if(res.status === 201) {
 
-                        })
-                        // /api/jokes/
-            })
+                        // console.log('status', res)
+                        console.log('user is in')
+                        // expect(res.status).toBe(201)
+                        // the data was erased before this was run
+                        return request(server)
+                            .post('/api/auth/login')
+                            .send({
+                                username: 'test server',
+                                password: 'password'})
+                            .then(res => {
+                                console.log(res.status)
+                                // now add the jokes
+                                expect(res.status).toBe(200)
+            
+                            })
+                            // /api/jokes/
+                        }
+                } )
+        
+   
+                
     })
 })

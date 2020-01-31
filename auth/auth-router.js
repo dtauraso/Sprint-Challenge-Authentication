@@ -4,12 +4,18 @@ const jwt = require('jsonwebtoken')
 const { jwtSecret } = require('../config/secrets.js')
 const Users = require('../users/users-model.js');
 
-
+router.get('/', (req, res) => {
+  console.log('here')
+  res.status(200)
+})
 router.post('/register', (req, res) => {
   // implement registration
   let user = req.body;
-  const hash = bcrypt.hashSync(user.password, 10); // 2 ^ n
+    // console.log(user)
+
+  const hash = bcrypt.hashSync(user.password, 5); // 2 ^ n
   user.password = hash;
+  // console.log(user)
   // send a token in the register
   Users.add(user)
     .then(saved => {

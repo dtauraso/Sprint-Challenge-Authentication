@@ -9,7 +9,7 @@ describe('get jokes', function() {
     beforeEach(async () => {
         await db('users').truncate();
     })
-    it('test get endpoint', async function() {
+    it('test get endpoint', function() {
         // const users = await db('users')
 
         // console.log('length', users.length)
@@ -22,6 +22,7 @@ describe('get jokes', function() {
         //             console.log('status', res.status)
         //             expect(res.status).toBe(201)
         //     })
+        // for some reason inserting to the table
         return request(server)
                 .post('/api/auth/register')
                 .send({
@@ -42,7 +43,15 @@ describe('get jokes', function() {
                             .then(res => {
                                 console.log(res.status)
                                 // now add the jokes
-                                expect(res.status).toBe(200)
+                                if(res.status === 200) {
+                                    return request(server)
+                                            .get('/')
+                                            .then(res => {
+                                                console.log('dad jokes', res)
+                                            })
+
+                                }
+                                // expect(res.status).toBe(200)
             
                             })
                             // /api/jokes/

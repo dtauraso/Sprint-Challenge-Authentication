@@ -40,12 +40,20 @@ Demonstrate your understanding of this week's concepts by answering the followin
 
 - [ ] What is the purpose of using _sessions_?
 
+    Sessions are supposed to provide a period of time you can access the pages without having to login again.
+
 - [ ] What does bcrypt do to help us store passwords in a secure manner.
+    
+    bcrypt uses salts, random bits, to create unique encryptions.  This breaks rainbow tables. 
 
 - [ ] What does bcrypt do to slow down attackers?
+    
+    The more salt rounds are run, the slower it takes to break the password.
 
 - [ ] What are the three parts of the JSON Web Token?
-
+    
+    header, payload(data to be transported), and the secret(so the server can decrypt it)
+    
 ## Minimum Viable Product
 
 Implement an User Authentication System. Hash user's passwords before saving them to the database. Use `JSON Web Tokens` or `Sessions and Cookies` to persist authentication across requests.
